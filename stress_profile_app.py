@@ -1,4 +1,3 @@
-# stress_profile_app.py
 import streamlit as st
 from datetime import datetime
 import io
@@ -13,18 +12,19 @@ if name:
 
     st.markdown("""
     **Instructions:**
-    - Rate each statement from 0 (Never) to 10 (Almost Always).
+    - Select the option that best reflects how often each statement has been true for you over the past year.
     - Be honest — this is for your personal reflection.
     """)
 
-    scale = {
-        0: "Never", 1: "Almost never", 2: "Rarely", 3: "Very infrequently", 4: "Infrequently",
-        5: "Sometimes", 6: "Occasionally", 7: "Often", 8: "Frequently",
-        9: "Very frequently", 10: "Almost always"
-    }
+    # Rating labels (used instead of numbers)
+    rating_labels = [
+        "Never", "Almost never", "Rarely", "Very infrequently", "Infrequently",
+        "Sometimes", "Occasionally", "Often", "Frequently", "Very frequently", "Almost always"
+    ]
 
+    # Updated 20 statements
     statements = [
-         "I feel used up at the end of the day.",
+        "I feel used up at the end of the day.",
         "I wish I could be as happy as other people seem to be.",
         "I try to do two or three things at once, rather than taking one thing at a time.",
         "If I could stop worrying so much, I would accomplish a lot more.",
@@ -46,6 +46,7 @@ if name:
         "I feel I should be spending more time with my family."
     ]
 
+    # Mapping to stress types
     stress_types = {
         "Basket Case": [1, 6, 11, 16],
         "Drifter": [2, 7, 12, 17],
@@ -54,11 +55,13 @@ if name:
         "Loner": [5, 10, 15, 20]
     }
 
+    # Collect responses
     responses = {}
     for i, statement in enumerate(statements, 1):
         st.markdown(f"**{i}. {statement}**")
-        responses[i] = st.slider("Your rating", 0, 10, 5, key=f"q{i}")
-        st.markdown("---")  # optional visual divider
+        selected_label = st.selectbox("Your rating", rating_labels, index=5, key=f"q{i}")
+        responses[i] = rating_labels.index(selected_label)
+        st.markdown("---")
 
     if st.button("Get My Results"):
         total_stress_score = 0
@@ -72,6 +75,7 @@ if name:
             else:
                 return "🚨 Elevated Risk: Take corrective action now."
 
+        # Calculate type scores
         for s_type, questions in stress_types.items():
             score = sum(responses[q] for q in questions)
             type_scores[s_type] = score
@@ -79,6 +83,7 @@ if name:
 
         total_msg = interpret(total_stress_score)
 
+        # Show results
         st.subheader("🧾 Your Results")
         st.markdown(f"**Total Stress Score:** `{total_stress_score} / 200`")
         st.markdown(f"**Interpretation:** {total_msg}")
@@ -87,7 +92,7 @@ if name:
         for s_type, score in type_scores.items():
             st.markdown(f"- **{s_type}**: {score} → {interpret(score)}")
 
-        # Generate report text
+        # Generate report
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         output = io.StringIO()
         output.write(f"Stress Profile Test Results\n")
@@ -101,11 +106,10 @@ if name:
             output.write(f"- {s_type}: {score} → {interpret(score)}\n")
         output.write("\nYour Responses:\n")
         for i, value in responses.items():
-            output.write(f"{i}. {statements[i-1]} = {value} ({scale[value]})\n")
+            output.write(f"{i}. {statements[i-1]} = {value} ({rating_labels[value]})\n")
         output.write("\nFor deeper insight, contact Shannon Levee at slevee72@gmail.com\n")
-        output.write("\nCopyright 2003-2018 Canadian Institute of Stress All rights reserved\n")
 
-        # Provide download button
+        # Download button
         st.download_button(
             label="📥 Download My Report",
             data=output.getvalue(),
