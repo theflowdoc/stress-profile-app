@@ -56,7 +56,9 @@ if name:
 
     responses = {}
     for i, statement in enumerate(statements, 1):
-        responses[i] = st.slider(f"{i}. {statement}", 0, 10, 5)
+        st.markdown(f"**{i}. {statement}**")
+        responses[i] = st.slider("Your rating", 0, 10, 5, key=f"q{i}")
+        st.markdown("---")  # optional visual divider
 
     if st.button("Get My Results"):
         total_stress_score = 0
