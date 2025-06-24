@@ -12,17 +12,17 @@ if name:
 
     st.markdown("""
     **Instructions:**
-    - Select how often each statement has been true for you over the past year.
-    - Be honest — this is for your personal reflection.
+    - For each statement, move the slider to the option that best matches your experience over the past year.
+    - The labels reflect frequency from **Never** to **Almost always**.
     """)
 
-    # Horizontal descriptive labels instead of numbers
+    # Frequency rating labels
     rating_labels = [
         "Never", "Almost never", "Rarely", "Very infrequently", "Infrequently",
         "Sometimes", "Occasionally", "Often", "Frequently", "Very frequently", "Almost always"
     ]
 
-    # Updated 20 statements
+    # Statements
     statements = [
         "I feel used up at the end of the day.",
         "I wish I could be as happy as other people seem to be.",
@@ -54,17 +54,17 @@ if name:
         "Loner": [5, 10, 15, 20]
     }
 
+    # Display sliders with labels
     responses = {}
     for i, statement in enumerate(statements, 1):
         st.markdown(f"**{i}. {statement}**")
-        selected_label = st.radio(
-            "Your rating",
-            rating_labels,
-            index=5,
-            horizontal=True,
+        label = st.select_slider(
+            "Select frequency",
+            options=rating_labels,
+            value="Sometimes",
             key=f"q{i}"
         )
-        responses[i] = rating_labels.index(selected_label)
+        responses[i] = rating_labels.index(label)
         st.markdown("---")
 
     if st.button("Get My Results"):
