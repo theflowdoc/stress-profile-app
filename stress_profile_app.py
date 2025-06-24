@@ -103,6 +103,7 @@ if name:
         for i, value in responses.items():
             output.write(f"{i}. {statements[i-1]} = {value} ({scale[value]})\n")
         output.write("\nFor deeper insight, contact Shannon Levee at slevee72@gmail.com\n")
+        output.write("\nCopyright 2003-2018 Canadian Institute of Stress All rights reserved\n")
 
         # Provide download button
         st.download_button(
