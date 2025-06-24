@@ -24,26 +24,26 @@ if name:
     }
 
     statements = [
-        "I feel used up at the end of the day.",
+         "I feel used up at the end of the day.",
         "I wish I could be as happy as other people seem to be.",
         "I try to do two or three things at once, rather than taking one thing at a time.",
         "If I could stop worrying so much, I would accomplish a lot more.",
-        "I don't seem to get the same kind of lasting satisfaction from time with friends.",
-        "I feel low on energy or unable to get things done.",
-        "I feel many people see me as more successful than I am.",
-        "I hold feelings in instead of expressing them openly.",
-        "When something stressful is coming up, I focus on how it could go poorly.",
-        "I don't feel close to or accepted by those around me.",
+        "I don't seem to get the same kind of lasting satisfaction that I used to from the time I spend with friends.",
+        "I feel low on energy, exhausted, tired, or unable to get things done.",
+        "I feel that many people see me as being a lot more successful than I really feel I have been.",
+        "I tend to hold my feelings inside, rather than expressing them openly.",
+        "When something difficult or stressful is coming up, I find myself thinking about all the ways things can go poorly for me.",
+        "I don't feel really close to or accepted by the people around me, both family and friends.",
         "I tire quickly.",
-        "My leisure time doesn't reflect my creative side.",
-        "I tend to interrupt or finish sentences for others.",
-        "Worrisome thoughts keep returning when I try to forget them.",
-        "I don’t handle disagreements as well as I’d like.",
+        "I feel that my leisure time and recreational life don't express the really creative side of me.",
+        "I tend to anticipate others in conversation (interrupting, finishing sentences for the other person), rather than listening well and letting the other person finish speaking.",
+        "Whenever I try to put a worrisome thought out of my mind, it comes right back.",
+        "I don't handle conflicts or disagreements with people as well as I'd like to.",
         "I get the flu or a cold.",
-        "The way I organize my time doesn’t reflect my interests.",
-        "I get uneasy when I’m waiting.",
-        "I struggle with decisions, worrying if I’ve missed alternatives.",
-        "I feel I should spend more time with my family."
+        "The ways I organize and use my time aren't a very accurate reflection of my interests.",
+        "I get uneasy when I'm waiting.",
+        "Decisions are hard for me because I spend a lot of time wondering if I've thought of all the alternatives.",
+        "I feel I should be spending more time with my family."
     ]
 
     stress_types = {
