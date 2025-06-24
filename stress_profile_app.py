@@ -12,11 +12,11 @@ if name:
 
     st.markdown("""
     **Instructions:**
-    - Select the option that best reflects how often each statement has been true for you over the past year.
+    - Select how often each statement has been true for you over the past year.
     - Be honest — this is for your personal reflection.
     """)
 
-    # Rating labels (used instead of numbers)
+    # Horizontal descriptive labels instead of numbers
     rating_labels = [
         "Never", "Almost never", "Rarely", "Very infrequently", "Infrequently",
         "Sometimes", "Occasionally", "Often", "Frequently", "Very frequently", "Almost always"
@@ -46,7 +46,6 @@ if name:
         "I feel I should be spending more time with my family."
     ]
 
-    # Mapping to stress types
     stress_types = {
         "Basket Case": [1, 6, 11, 16],
         "Drifter": [2, 7, 12, 17],
@@ -55,11 +54,16 @@ if name:
         "Loner": [5, 10, 15, 20]
     }
 
-    # Collect responses
     responses = {}
     for i, statement in enumerate(statements, 1):
         st.markdown(f"**{i}. {statement}**")
-        selected_label = st.selectbox("Your rating", rating_labels, index=5, key=f"q{i}")
+        selected_label = st.radio(
+            "Your rating",
+            rating_labels,
+            index=5,
+            horizontal=True,
+            key=f"q{i}"
+        )
         responses[i] = rating_labels.index(selected_label)
         st.markdown("---")
 
@@ -75,7 +79,6 @@ if name:
             else:
                 return "🚨 Elevated Risk: Take corrective action now."
 
-        # Calculate type scores
         for s_type, questions in stress_types.items():
             score = sum(responses[q] for q in questions)
             type_scores[s_type] = score
@@ -83,7 +86,6 @@ if name:
 
         total_msg = interpret(total_stress_score)
 
-        # Show results
         st.subheader("🧾 Your Results")
         st.markdown(f"**Total Stress Score:** `{total_stress_score} / 200`")
         st.markdown(f"**Interpretation:** {total_msg}")
@@ -92,7 +94,6 @@ if name:
         for s_type, score in type_scores.items():
             st.markdown(f"- **{s_type}**: {score} → {interpret(score)}")
 
-        # Generate report
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         output = io.StringIO()
         output.write(f"Stress Profile Test Results\n")
@@ -109,7 +110,6 @@ if name:
             output.write(f"{i}. {statements[i-1]} = {value} ({rating_labels[value]})\n")
         output.write("\nFor deeper insight, contact Shannon Levee at slevee72@gmail.com\n")
 
-        # Download button
         st.download_button(
             label="📥 Download My Report",
             data=output.getvalue(),
